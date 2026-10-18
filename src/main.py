@@ -5,10 +5,16 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from controladores.caso_controlador import CasoControlador
 from modelos.usuario import Ciudadano, Voluntario
+from servicios.gestor_casos import GestorCasos
+from servicios.notificaciones import NotificadorVoluntarios, TableroRefugio
 from vistas.caso_vista import CasoVista
 
 
 def main():
+    gestor = GestorCasos()
+    gestor.publicador.suscribir(NotificadorVoluntarios())
+    gestor.publicador.suscribir(TableroRefugio())
+
     controlador = CasoControlador(CasoVista())
     ciudadano = Ciudadano("María", "maria@correo.com")
 
